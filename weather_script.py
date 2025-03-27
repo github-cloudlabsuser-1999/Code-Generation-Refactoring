@@ -1,5 +1,17 @@
 import requests
-
+def process_weather_data(weather_data):
+    try:
+        description = weather_data['weather'][0]['description'].capitalize()
+        temperature = weather_data['main']['temp']
+        humidity = weather_data['main']['humidity']
+        return {
+            "description": description,
+            "temperature": temperature,
+            "humidity": humidity
+        }
+    except (KeyError, TypeError) as e:
+        print(f"Error processing weather data: {e}")
+        return None
 def fetch_weather(api_key, city):
     base_url = "http://api.openweathermap.org/data/2.5/weather"
     params = {
